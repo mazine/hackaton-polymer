@@ -10,9 +10,9 @@
 
             function _showAt($popup, top, left) {
                 $popup.appendTo($('body'));
-                $popup.offset({top: top, left: left});
                 popups.hide();
                 $popup.show();
+                $popup.offset({top: top, left: left});
             }
 
             function reflectiveContains(container, contained) {
@@ -26,7 +26,8 @@
 
                     // Handle outer click
                     $(document).click(function (event) {
-                        if (!reflectiveContains(_this, event.target) && !reflectiveContains(_this.$target && _this.$target[0], event.target)) {
+                        var target = _this.$target && _this.$target[0];
+                        if (!reflectiveContains(_this, event.target) && !reflectiveContains(target, event.target)) {
                             $(_this).hide();
                         }
                     });
