@@ -1,0 +1,74 @@
+@import "../ring/ring";
+
+@keyframes rotating {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes colors {
+  0% {
+    border-left-color: #F00;
+  }
+
+  20% {
+    border-left-color: #FF9800;
+  }
+
+  40% {
+    border-left-color: #FF0;
+  }
+
+  60% {
+    border-left-color: #008000;
+  }
+
+  80% {
+    border-left-color: #00F;
+  }
+
+  100% {
+    border-left-color: #F0F;
+  }
+}
+
+.ring-loader {
+  width: 3 * $ring-unit;
+  height: 3 * $ring-unit;
+  margin: $ring-unit*2 auto;
+
+  border-radius: 50%;
+  border: solid 1px #D8D8D8;
+
+  animation: colors 6s linear infinite, rotating 0.7s linear infinite;
+
+  font-size: 0;
+}
+
+@media screen and (min-width:0\0) {
+  .ring-loader {
+    width: 3 * $ring-unit;
+    height: 3 * $ring-unit;
+    margin: $ring-unit*2 auto;
+
+    border-radius: 50%;
+    border: solid 1px #D8D8D8;
+
+    font-size: 0;
+
+    animation: colors 6s linear infinite, rotating 0.7s linear infinite;
+  }
+}
+
+.ring-loader_inline {
+  box-sizing: border-box;
+
+  position: relative;
+  top: 1px;
+
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+
+  margin: 0;
+}

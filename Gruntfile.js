@@ -23,6 +23,13 @@ module.exports = function (grunt) {
     dist: 'dist'
   };
 
+  var path = {
+    blocks: 'blocks/',
+    dist: 'dist/',
+    bundles: 'bundles/'
+  };
+  var args = process.argv.join(':').split(':');
+
   grunt.initConfig({
     yeoman: yeomanConfig,
     watch: {
@@ -30,7 +37,10 @@ module.exports = function (grunt) {
         nospawn: true,
         livereload: true
       },
-
+      styles: {
+        files: ['<%= yeoman.app %>**/*.scss', '<%= path.blocks %>**/*.md'],
+        tasks: args.indexOf('styleguide') !== -1 ? ['styles', 'styleguide'] : ['styles']
+      },
       livereload: {
         options: {
           livereload: LIVERELOAD_PORT
@@ -88,6 +98,7 @@ module.exports = function (grunt) {
       }
     },
     clean: {
+      styles: '<%= path.dist %>/*.css',
       dist: ['.tmp', '<%= yeoman.dist %>/*'],
       server: '.tmp'
     },
@@ -124,6 +135,22 @@ module.exports = function (grunt) {
         dirs: ['<%= yeoman.dist %>']
       }
     },
+    sass: {
+      dist: {
+        options: {
+          includePaths: ['<%= path.blocks %>**/'],
+          sourceComments: 'map',
+          outputStyle: 'nested'
+        },
+        files: [{
+          expand: true,
+          cwd: '<%= path.bundles %>',
+          src: '*.scss',
+          dest: '<%= path.dist %>',
+          ext: '.css'
+        }]
+      }
+    },
     vulcanize: {
       default: {
         options: {},
@@ -143,7 +170,7 @@ module.exports = function (grunt) {
             src: [
               '*.{ico,txt}',
               '.htaccess',
-              'elements/**',
+              'blocks/**',
               'lib-elements/**',
               'images/{,*/}*.{webp,gif}'
             ]
@@ -165,13 +192,19 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
-
+      'styles',
       'connect:livereload',
       'copy',
       'open',
       'watch'
     ]);
   });
+
+  grunt.registerTask('styles', [
+    'clean:styles',
+    'sass'
+  ]);
+
 
   grunt.registerTask('test', [
     'clean:server',

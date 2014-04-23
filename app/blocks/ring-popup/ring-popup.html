@@ -1,0 +1,55 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<polymer-element name="ring-popup" attributes="type" class="ring-popup">
+    <template>
+        <div id="content" class="ring-popup__i"><span style="padding: 8px">Empty</span></div>
+    </template>
+    <script>
+        (function () {
+            var popups = $();
+
+            function _showAt($popup, top, left) {
+                $popup.appendTo($('body'));
+                $popup.offset({top: top, left: left});
+                popups.hide();
+                $popup.show();
+            }
+
+            function reflectiveContains(container, contained) {
+                return container && (container === contained || $.contains(container, contained));
+            }
+
+            Polymer('ring-popup', {
+                $target: null,
+                ready: function () {
+                    var _this = this;
+
+                    // Handle outer click
+                    $(document).click(function (event) {
+                        if (!reflectiveContains(_this, event.target) && !reflectiveContains(_this.$target && _this.$target[0], event.target)) {
+                            $(_this).hide();
+                        }
+                    });
+                },
+                attached: function () {
+                    popups = popups.add(this);
+                },
+                detached: function () {
+                    popups = popups.not(this);
+                },
+                attachTo: function (target) {
+                    this.$target = $(target);
+                    var pos = this.$target.position();
+                    var $this = $(this);
+                    $this.addClass('ring-popup_bound');
+                    _showAt($this, pos.top + this.$target.outerHeight(), pos.left);
+                },
+                showAt: function (top, left) {
+                    var $this = $(this);
+                    $this.removeClass('ring-popup_bound');
+                    _showAt($this, top, left);
+                }
+            });
+        })();
+    </script>
+</polymer-element>

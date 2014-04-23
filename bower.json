@@ -5,5 +5,7 @@
     "platform": "Polymer/platform#master",
     "polymer": "Polymer/polymer#master"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "jquery": "~2.1.0"
+  }
 }

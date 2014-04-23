@@ -1,12 +1,5 @@
 <!doctype html>
-<!--[if lt IE 7]>
-<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>
-<html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>
-<html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!-->
-<html class="no-js"> <!--<![endif]-->
+<html class="no-js">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,23 +14,40 @@
 
     <!-- Place your HTML imports here -->
     <script src="bower_components/platform/platform.js"></script>
-    <link rel="import" href="elements/list.html">
-    <link rel="import" href="elements/greeting.html">
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <link rel="import" href="blocks/ring-popup/ring-popup.html">
 </head>
 <body>
 
-
-<div class="hero-unit">
-    <polymer-greeting></polymer-greeting>
-    <p>You now have</p>
-    <polymer-list>
-        <polymer-list>
+<div>
+    <button id="show-popup-btn">Show Popup at 100x400</button>
+    <button id="destroy-popup-btn">Destroy</button>
 </div>
 
+<div>
+    <span id="span-with-popup" style="border: 1px black solid">This will have popup</span>
+    <button id="attach-popup-btn">Attach Popup</button>
+</div>
 
 <script>
     document.addEventListener('WebComponentsReady', function () {
-        // Perform some behaviour
+        var positionedPopup = document.createElement('ring-popup');
+        var attachedPopup = document.createElement('ring-popup');
+
+        document.getElementById('show-popup-btn').addEventListener('click', function (event) {
+            positionedPopup.showAt(100, 400);
+            event.stopPropagation();
+        });
+
+        document.getElementById('destroy-popup-btn').addEventListener('click', function (event) {
+            positionedPopup.parentNode.removeChild(positionedPopup);
+            event.stopPropagation();
+        });
+
+        document.getElementById('attach-popup-btn').addEventListener('click', function (event) {
+            attachedPopup.attachTo(document.getElementById('span-with-popup'));
+            event.stopPropagation();
+        });
     });
 </script>
 </body>

@@ -1,0 +1,7 @@
+$ring-overlay-z-index: 5;
+$ring-unit: 8px;
+
+// Fonts
+@mixin ring-font() {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+}
