@@ -27,12 +27,14 @@
 <div>
     <span id="span-with-popup" style="border: 1px black solid">This will have popup</span>
     <button id="attach-popup-btn">Attach Popup</button>
+    <ring-popup id="attached-popup">Attached Popup</ring-popup>
 </div>
 
 <script>
     document.addEventListener('WebComponentsReady', function () {
         var positionedPopup = document.createElement('ring-popup');
-        var attachedPopup = document.createElement('ring-popup');
+        positionedPopup.innerHTML = '<span>Positioned Popup</span>';
+        var attachedPopup = document.getElementById('attached-popup');
 
         document.getElementById('show-popup-btn').addEventListener('click', function (event) {
             positionedPopup.showAt(100, 400);

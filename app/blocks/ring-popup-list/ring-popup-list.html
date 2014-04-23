@@ -1,0 +1,17 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/polymer-selector/polymer-selector.html">
+<link rel="import" href="../ring-popup-list/ring-popup-list.html">
+
+<polymer-element name="ring-popup-list" class="ring-popup" extends="ring-popup">
+    <template>
+        <div id="content" class="ring-popup__i">
+            <content></content>
+        </div>
+    </template>
+    <script>
+        (function () {
+            Polymer('ring-popup-list', {
+            });
+        })();
+    </script>
+</polymer-element>

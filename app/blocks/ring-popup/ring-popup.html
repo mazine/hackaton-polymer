@@ -1,8 +1,10 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
-<polymer-element name="ring-popup" attributes="type" class="ring-popup">
+<polymer-element name="ring-popup" class="ring-popup" style="display: none">
     <template>
-        <div id="content" class="ring-popup__i"><span style="padding: 8px">Empty</span></div>
+        <div id="content" class="ring-popup__i">
+            <content></content>
+        </div>
     </template>
     <script>
         (function () {
